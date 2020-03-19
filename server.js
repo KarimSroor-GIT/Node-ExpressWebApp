@@ -22,11 +22,23 @@ app.use(
 app.set('view engine','ejs');
 app.set ('views',path.join(__dirname,'./views'));
 
+app.locals.siteName= "Node Website";
+
+app.use( async (req,res,next) => {
+  
+  const names = await speakerService.getNames();
+  res.locals.speakerNames = names;
+  return next();
+
+});
+
 app.use(express.static(path.join(__dirname,'./static')));
 app.use('/',routes({
   feedbackService,
   speakerService
 }));
+
+
 
 app.listen(port, ()=> {
   console.log (`Express server running & listening to Port : ${port}`);
