@@ -4,7 +4,7 @@ const routes = require('./routes');
 const cookieSession = require ('cookie-session');
 const Feedbackservice = require('./services/FeedbackService');
 const SpeakerService = require ('./services/SpeakerService');
-
+const bodyParser = require('body-parser');
 const feedbackService = new Feedbackservice ('./data/feedback.json');
 const speakerService  = new SpeakerService ('./data/speakers.json');
 
@@ -19,6 +19,7 @@ app.use(
     })
 );
 
+app.use (bodyParser.urlencoded({extended:true}));
 app.set('view engine','ejs');
 app.set ('views',path.join(__dirname,'./views'));
 
